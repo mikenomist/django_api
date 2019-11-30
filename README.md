@@ -47,8 +47,14 @@ python manage.py runserver
 ![runserver](https://user-images.githubusercontent.com/58038726/69896612-e6fa5e00-1384-11ea-994d-34d9a598b375.png)  
   
 ## 確認方法  
+__ブラウザへのアクセス__  
 好きなブラウザ(Chrome推奨)を開いて http://127.0.0.1:8000/ にアクセスします。  
 「送信」ボタンを押下して数字が変わったら成功。  
+__APIの実行__  
+コマンドプロンプトでcurlコマンドやpythonでリクエストを投げて正常に返ってくれば成功。  
+```cmd  
+curl http://127.0.0.1:8000/api/count/  
+```  
 
 ## 処理の概要  
 画面上処理：「送信」ボタンを押すことを検知すると、jQueryのAjaxを使って http://127.0.0.1:8000/api/count/ へアクセスする  
