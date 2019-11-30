@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}API-Test{% endblock title %}
+{# StyleSheet定義 #}
+{% block extra_css %}
+  <style type="text/css">
+    /* セクション */
+    section{
+      /* 幅 */
+      width: 200px;
+      /* 余白 */
+      margin: 5px auto;
+      padding: 5px 10px;
+      /* 枠線 */
+      border-style: solid;
+      border-width: 1px;
+      border-color: #000;
+      border-radius: 1rem;
+      /* 影 */
+      box-shadow: 10px 10px 10px rgba(0,0,0,0.6);
+      /* 背景色 */
+      backgroud-color: #ccc;
+    }
+    /* ボタン */
+    .btn{
+      /* 幅 */
+      width: 50px;
+      /* 枠線 */
+      border-radius: 0.2rem;
+      /* 影 */
+      box-shadow: 1px 1px 1px rgba(0,0,0,0.6);
+      /* 背景色 */
+      background-color: #4169e1;
+      /* 文字色 */
+      color: #FFF;
+      /* 表示形式 */
+      display: inline-block;
+    }
+    .btn:hover{
+      /* 背景色 */
+      background-color: blue;
+      /* カーソル */
+      cursor: pointer;
+    }
+    /* 結果表示部分 */
+    .result{
+      /* 幅 */
+      width: 100px;
+      /* 枠線 */
+      border-style: solid;
+      border-width: 1px;
+      border-color: #000;
+      /* テキスト寄せ */
+      text-align: right;
+      /* 表示形式 */
+      display: inline-block;
+    }
+  </style>
+{% endblock extra_css %}
+
+{# ページ本文定義 #}
+{% block content %}
+<section>
+  <div id="api_get" class="result">0</div>
+  <button id="api_send" class="btn">送信</button>
+</section>
+{% endblock content %}
+
+{# JavaScript定義 #}
+{% block extra_js %}
+<!-- カウントAPI実行 -->
+<script>
+$(function(){
+  var jqxhr;
+  // 検索結果表示のオブジェクト取得
+  var input_obj = $('#api_get');
+  // API実行関数
+  function get_number(){
+    console.log('Start Count Ajax');
+    // Ajaxオブジェクトの呼び出し
+    // 前回実行分を中断
+    if (jqxhr) {
+        console.log('Clear Before Ajax');
+        input_obj.val(0);
+        jqxhr.abort();
+    }
+    console.log('Start Ajax');
+    jqxhr = $.ajax({
+      // API実行
+      type: 'GET',
+      url: 'api/count/',
+      dataType: 'json',
+    })
+    .done(function( data ) {
+      console.log('Done Ajax');
+      // 値を0から1ずつ増やしていくエフェクト
+      input_obj.prop('c',0).animate({
+        c: data.count
+      }, {
+        duration: 100,
+        easing: 'linear',
+        step: function (now) {
+          input_obj.text(Math.ceil(now));
+        }
+      });
+    })
+    .fail(function( data ) {
+        console.log('Fail Ajax');
+        input_obj.text(0)
+    });
+  }
+  /* 送信ボタン押した時の動作 */
+  $('#api_send').on('click', function(){
+      console.log('Ready Count Ajax');
+      get_number();
+  });
+});
+
+</script>
+
+{% endblock extra_js %}

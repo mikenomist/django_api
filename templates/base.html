@@ -1,0 +1,25 @@
+{% load i18n static %}
+<!DOCTYPE html>{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {% block extra_css %}{% endblock %}
+    <title>{% block title %}BasePage{% endblock %}</title>
+  </head>
+  <body>
+    <header id="header">
+      {% block header %}{% endblock %}
+    </header>
+
+    <main id="main">
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer id="footer">
+      {% block footer %}{% endblock %}
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+  </body>
+</html>
