@@ -55,6 +55,7 @@ __APIの実行__
 ```cmd  
 curl http://127.0.0.1:8000/api/count/  
 ```  
+![curl](https://user-images.githubusercontent.com/58038726/69896978-c8966180-1388-11ea-98ef-bfa35d662a3c.png)  
 
 ## 処理の概要  
 画面上処理：「送信」ボタンを押すことを検知すると、jQueryのAjaxを使って http://127.0.0.1:8000/api/count/ へアクセスする  
